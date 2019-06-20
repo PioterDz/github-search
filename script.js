@@ -5,7 +5,7 @@ class App extends React.Component {
             searchText: '',
             users: [],
             error: '',
-            noMatch: 'No match found'
+            searchDone: false
         };
     }
   
@@ -21,7 +21,8 @@ class App extends React.Component {
             .then(response => response.json())
             .then(responseJson => this.setState({
                 users: responseJson.items,
-                error: ''
+                error: '',
+                searchDone: true
             }))
             .catch(err => {
                 this.setState({
@@ -43,7 +44,7 @@ class App extends React.Component {
             </form>
             <UsersList users={this.state.users}/>
             { this.state.error ? <p>{this.state.error}</p> : null }
-            { this.state.users ? null : <p>{this.state.noMatch}</p> }
+            { !this.state.users.length && this.state.searchDone ? <p>No match found</p> : null }
         </div>
       );
     }

@@ -20,7 +20,7 @@ var App = function (_React$Component) {
             searchText: '',
             users: [],
             error: '',
-            noMatch: 'No match found'
+            searchDone: false
         };
         return _this;
     }
@@ -44,7 +44,8 @@ var App = function (_React$Component) {
             }).then(function (responseJson) {
                 return _this2.setState({
                     users: responseJson.items,
-                    error: ''
+                    error: '',
+                    searchDone: true
                 });
             }).catch(function (err) {
                 _this2.setState({
@@ -84,11 +85,11 @@ var App = function (_React$Component) {
                     null,
                     this.state.error
                 ) : null,
-                this.state.users ? null : React.createElement(
+                !this.state.users.length && this.state.searchDone ? React.createElement(
                     'p',
                     null,
-                    this.state.noMatch
-                )
+                    'No match found'
+                ) : null
             );
         }
     }]);
