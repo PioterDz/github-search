@@ -3,7 +3,9 @@ class App extends React.Component {
         super();
         this.state = {
             searchText: '',
-            users: []
+            users: [],
+            error: '',
+            noMatch: 'No match found'
         };
     }
   
@@ -17,7 +19,15 @@ class App extends React.Component {
         const url = `https://api.github.com/search/users?q=${searchText}`;
         fetch(url)
             .then(response => response.json())
-            .then(responseJson => this.setState({users: responseJson.items}));
+            .then(responseJson => this.setState({
+                users: responseJson.items,
+                error: ''
+            }))
+            .catch(err => {
+                this.setState({
+                    error: 'Something went wrong'
+                })
+            });
     }
   
     render() {
@@ -32,12 +42,15 @@ class App extends React.Component {
                     value={this.state.searchText}/>
             </form>
             <UsersList users={this.state.users}/>
+            { this.state.error ? <p>{this.state.error}</p> : null }
+            { this.state.users ? null : <p>{this.state.noMatch}</p> }
         </div>
       );
     }
 }
 
 class UsersList extends React.Component {
+
     get users() {
         return this.props.users.map(user => <User key={user.id} user={user}/>);
     }
