@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=B612+Mono&display=swap');
+
+* {
+    font-family: 'B612 Mono', monospace;
+}
+form {
+    text-align: center;
+    label {
+        margin: 50px;
+    }
+    input {
+        border-width: 1px;
+        border-color: #808e9b;
+    }
+}
+.listOfUsers {
+    margin-top: 75px;
+    .oneUser {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        a {
+            text-decoration: none;
+            margin-left: 20px;
+            color: #808e9b
+        }
+    }
+}
